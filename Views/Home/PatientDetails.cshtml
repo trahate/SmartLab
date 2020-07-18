@@ -1,0 +1,91 @@
+﻿@model IEnumerable<SmartLab.DAL.Patient_Tbl>
+
+@{
+    ViewBag.Title = "PatientDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+   
+}
+
+<h2>PatientDetails</h2>
+
+
+<div class="container body-content">
+    <table class="table-responsive table-condensed" border="1" id="dataTable">
+
+        <thead>
+        <th>Sr.No</th>
+        <th>Patient ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Mobile Number</th>
+        <th>Address</th>
+        </thead>
+        <tbody>
+            @{ int count = 1;}
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@count</td>
+                    <td>@item.PatientID</td>
+                    <td>@item.PatientFName</td>
+                    <td>@item.PateintLName</td>
+                    <td>@item.PateintNumber</td>
+                    <td>@item.PateintAddress</td>
+                </tr>
+                count++;
+            }
+        </tbody>
+    </table>
+    <a href="~/Home/home" class="btn btn-default">Create</a>
+</div>
+
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+               @Html.DisplayNameFor(model => model.PatientID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PatientFName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PateintLName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PateintNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PateintAddress)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PatientID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PatientFName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PateintLName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PateintNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PateintAddress)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+    </table>*@

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Smart_LabEntities">
+    <EntitySetMapping Name="Patient_Tbl">
+      <EntityTypeMapping TypeName="Model.Patient_Tbl">
+        <MappingFragment StoreEntitySet="Patient_Tbl">
+          <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+          <ScalarProperty Name="PatientFName" ColumnName="PatientFName" />
+          <ScalarProperty Name="PateintLName" ColumnName="PateintLName" />
+          <ScalarProperty Name="PateintNumber" ColumnName="PateintNumber" />
+          <ScalarProperty Name="PateintAddress" ColumnName="PateintAddress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Doctor_Tbl">
+      <EntityTypeMapping TypeName="Model.Doctor_Tbl">
+        <MappingFragment StoreEntitySet="Doctor_Tbl">
+          <ScalarProperty Name="DoctorNumber" ColumnName="DoctorNumber" />
+          <ScalarProperty Name="DoctorAddress" ColumnName="DoctorAddress" />
+          <ScalarProperty Name="DoctorName" ColumnName="DoctorName" />
+          <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spGetProcdure" FunctionName="Model.Store.spGetProcdure">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Model.spGetProcdure_Result">
+          <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+          <ScalarProperty Name="PatientFName" ColumnName="PatientFName" />
+          <ScalarProperty Name="PateintLName" ColumnName="PateintLName" />
+          <ScalarProperty Name="PateintNumber" ColumnName="PateintNumber" />
+          <ScalarProperty Name="PateintAddress" ColumnName="PateintAddress" />
+          <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+          <ScalarProperty Name="DoctorName" ColumnName="DoctorName" />
+          <ScalarProperty Name="DoctorAddress" ColumnName="DoctorAddress" />
+          <ScalarProperty Name="DoctorNumber" ColumnName="DoctorNumber" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

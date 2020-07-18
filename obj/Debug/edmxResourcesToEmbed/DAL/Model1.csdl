@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Patient_Tbl">
+    <Key>
+      <PropertyRef Name="PatientID" />
+    </Key>
+    <Property Name="PatientID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="PatientFName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PateintLName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PateintNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PateintAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="Smart_LabEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Patient_Tbl" EntityType="Self.Patient_Tbl" />
+    <EntitySet Name="Doctor_Tbl" EntityType="Model.Doctor_Tbl" />
+    <FunctionImport Name="spGetProcdure" ReturnType="Collection(Model.spGetProcdure_Result)" />
+  </EntityContainer>
+  <EntityType Name="Doctor_Tbl">
+    <Key>
+      <PropertyRef Name="DoctorID" />
+    </Key>
+    <Property Name="DoctorID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="DoctorName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="DoctorAddress" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="DoctorNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <ComplexType Name="spGetProcdure_Result">
+    <Property Type="String" Name="PatientID" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="PatientFName" Nullable="true" />
+    <Property Type="String" Name="PateintLName" Nullable="true" />
+    <Property Type="String" Name="PateintNumber" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="PateintAddress" Nullable="true" />
+    <Property Type="String" Name="DoctorID" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="DoctorName" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="DoctorAddress" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="DoctorNumber" Nullable="true" MaxLength="10" />
+  </ComplexType>
+</Schema>

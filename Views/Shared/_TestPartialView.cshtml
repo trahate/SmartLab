@@ -1,0 +1,44 @@
+﻿@model SmartLab.DAL.Patient_Tbl
+
+<div>
+    <h4>Patient_Tbl</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PatientFName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatientFName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PateintLName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PateintLName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PateintNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PateintNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PateintAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PateintAddress)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.PatientID }) |
+    @Html.ActionLink("Back to List", "Index")*@
+</p>

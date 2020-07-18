@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Doctor_Tbl">
+    <Key>
+      <PropertyRef Name="DoctorID" />
+    </Key>
+    <Property Name="DoctorID" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="DoctorName" Type="nchar" MaxLength="10" />
+    <Property Name="DoctorAddress" Type="nchar" MaxLength="10" />
+    <Property Name="DoctorNumber" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Patient_Tbl">
+    <Key>
+      <PropertyRef Name="PatientID" />
+    </Key>
+    <Property Name="PatientID" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="PatientFName" Type="nvarchar(max)" />
+    <Property Name="PateintLName" Type="nvarchar(max)" />
+    <Property Name="PateintNumber" Type="varchar" MaxLength="50" />
+    <Property Name="PateintAddress" Type="nvarchar(max)" />
+  </EntityType>
+  <Function Name="spGetProcdure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="Doctor_Tbl" EntityType="Self.Doctor_Tbl" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Patient_Tbl" EntityType="Self.Patient_Tbl" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Doctor_Tbl">
+          <Key>
+            <PropertyRef Name="DoctorID" />
+          </Key>
+          <Property Name="DoctorID" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="DoctorName" Type="nchar" MaxLength="10" />
+          <Property Name="DoctorAddress" Type="nchar" MaxLength="10" />
+          <Property Name="DoctorNumber" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Patient_Tbl">
+          <Key>
+            <PropertyRef Name="PatientID" />
+          </Key>
+          <Property Name="PatientID" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="PatientFName" Type="nvarchar(max)" />
+          <Property Name="PateintLName" Type="nvarchar(max)" />
+          <Property Name="PateintNumber" Type="varchar" MaxLength="50" />
+          <Property Name="PateintAddress" Type="nvarchar(max)" />
+        </EntityType>
+        <Function Name="spGetProcdure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Doctor_Tbl" EntityType="Self.Doctor_Tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patient_Tbl" EntityType="Self.Patient_Tbl" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Patient_Tbl">
+          <Key>
+            <PropertyRef Name="PatientID" />
+          </Key>
+          <Property Name="PatientID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="PatientFName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PateintLName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PateintNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PateintAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="Smart_LabEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Patient_Tbl" EntityType="Self.Patient_Tbl" />
+          <EntitySet Name="Doctor_Tbl" EntityType="Model.Doctor_Tbl" />
+          <FunctionImport Name="spGetProcdure" ReturnType="Collection(Model.spGetProcdure_Result)" />
+        </EntityContainer>
+        <EntityType Name="Doctor_Tbl">
+          <Key>
+            <PropertyRef Name="DoctorID" />
+          </Key>
+          <Property Name="DoctorID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DoctorName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DoctorAddress" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DoctorNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="spGetProcdure_Result">
+          <Property Type="String" Name="PatientID" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="PatientFName" Nullable="true" />
+          <Property Type="String" Name="PateintLName" Nullable="true" />
+          <Property Type="String" Name="PateintNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PateintAddress" Nullable="true" />
+          <Property Type="String" Name="DoctorID" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="DoctorName" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="DoctorAddress" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="DoctorNumber" Nullable="true" MaxLength="10" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Smart_LabEntities">
+          <EntitySetMapping Name="Patient_Tbl">
+            <EntityTypeMapping TypeName="Model.Patient_Tbl">
+              <MappingFragment StoreEntitySet="Patient_Tbl">
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="PatientFName" ColumnName="PatientFName" />
+                <ScalarProperty Name="PateintLName" ColumnName="PateintLName" />
+                <ScalarProperty Name="PateintNumber" ColumnName="PateintNumber" />
+                <ScalarProperty Name="PateintAddress" ColumnName="PateintAddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Doctor_Tbl">
+            <EntityTypeMapping TypeName="Model.Doctor_Tbl">
+              <MappingFragment StoreEntitySet="Doctor_Tbl">
+                <ScalarProperty Name="DoctorNumber" ColumnName="DoctorNumber" />
+                <ScalarProperty Name="DoctorAddress" ColumnName="DoctorAddress" />
+                <ScalarProperty Name="DoctorName" ColumnName="DoctorName" />
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spGetProcdure" FunctionName="Model.Store.spGetProcdure">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.spGetProcdure_Result">
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="PatientFName" ColumnName="PatientFName" />
+                <ScalarProperty Name="PateintLName" ColumnName="PateintLName" />
+                <ScalarProperty Name="PateintNumber" ColumnName="PateintNumber" />
+                <ScalarProperty Name="PateintAddress" ColumnName="PateintAddress" />
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+                <ScalarProperty Name="DoctorName" ColumnName="DoctorName" />
+                <ScalarProperty Name="DoctorAddress" ColumnName="DoctorAddress" />
+                <ScalarProperty Name="DoctorNumber" ColumnName="DoctorNumber" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

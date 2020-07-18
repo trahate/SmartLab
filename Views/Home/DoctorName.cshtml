@@ -1,0 +1,121 @@
+﻿
+@model IEnumerable<SmartLab.Models.ViewModel>
+
+@{
+    ViewBag.Title = "DoctorName";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DoctorName</h2>
+<div class="col-lg-9">
+
+    <table class="table-bordered table-striped table-responsive table">
+        <thead>
+            <tr>
+                <th>DoctorName</th>
+                <th>DoctorNumber</th>
+                <th>PatientFName</th>
+                <th>PateintAddress</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.doctor.DoctorName</td>
+                    <td>@item.doctor.DoctorNumber</td>
+                    <td>@item.Patient.PatientFName</td>
+                    <td>@item.Patient.PateintAddress</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p>
+        <button id="btn" class="btn">Click</button>
+        @*<a href="#" class="btn-link btn btn-default btn btn-toolbar" >Index2</a>*@
+        @*@Html.ActionLink("Edit", "Edit",null, new { @class = " btn-link btn btn-default btn btn-toolbar" }) 
+        @Html.ActionLink("Back to List", "Index")*@
+        @*@Html.Editor("EDIT", new { htmlAttributes = new { @class = "form-control" ,@id = "txt"} })*@
+        <input type="text" id="txt" class="form-control" placeholder="Enter Name" />
+    </p>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $("#submit").click(function (e) {
+            if ($("#usernameInput").val() == "")
+                alert("Username cannot be empty");
+            else if ($("#passwordInput").val() == "")
+                alert("Password cannot be empty");
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/DoctorName",
+                    contentType: "application/json; charset=utf-8",
+                    data: '{"userName":"' + $("#usernameInput").val() + '","password":"' + $("#passwordInput").val() + '"}',
+                    dataType: "html",
+                    success: function (result, status, xhr) {
+                        $("#dataDiv").html(result);
+                    },
+                    error: function (xhr, status, error) {
+                        $("#dataDiv").html("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                    }
+                });
+            }
+            return false;
+        });
+    });  
+
+    $(document).ready(function () {
+        var getdata = $("txt").val();
+        $("btn").click(function () {
+            
+            alert(getdata);
+            });
+        });
+    
+    
+</script>
+
+@*<div>
+        <h4>ViewModel</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.doctor.DoctorName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DoctorID)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DoctorName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DoctorName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PateintNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PateintNumber)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PateintAddress)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PateintAddress)
+            </dd>
+
+        </dl>
+    </div>*@
+

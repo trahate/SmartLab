@@ -1,0 +1,899 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="add_group.aspx.cs" Inherits="SchoolTestingPro.Pages.add_group" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+
+    <link rel="stylesheet" type="text/css" href="../Content/font-awesome.min.css" media="screen" />
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css' media="screen" />
+    <script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
+    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
+
+    <!-- Bootstrap -->
+
+
+    <style>
+        /*styles for batch_wrap starts */
+        .batch_wrap {
+            float: left;
+            width: 100%;
+        }
+
+        .create_wrap_inner {
+            border: 1px solid #dcdcdc;
+            border-radius: 4px;
+            /*margin: 35px 0;*/
+            min-height: 500px;
+            padding: 2%;
+            width: 95%;
+        }
+
+        .table_txt {
+            border: 1px solid #dcdcdc;
+            border-radius: 4px;
+            float: left;
+            position: relative;
+            width: 95%;
+            min-height: 900px;
+            margin-bottom: 50px;
+            margin-top: 15px;
+            margin-left: 60px;
+            margin-right: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+        /*styles for batch_wrap ends */
+
+        /*styles for aboutgroup  starts */
+
+        .editor {
+            line-height: 1.3;
+        }
+
+        .col-span-8 {
+            width: 80%;
+        }
+
+        h1, h2, h3, h4, h5 {
+            clear: both;
+            font-weight: 700;
+            line-height: 1.4em;
+            margin-bottom: .3em;
+        }
+
+        .editor p, .editor ul, .editor ol, .editor img {
+            margin-bottom: 1em;
+        }
+        /*styles for aboutgroup  ends */
+
+        /*styles for addgroupname  starts */
+
+        .txtboxstyling {
+            border-radius: 5px;
+            height: 34px;
+            color: #555;
+            border: 1px solid #ccc;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        }
+
+        .addgroubutton {
+            background: none repeat scroll 0 0 #ffb600;
+            color: #fff;
+            font-size: 15px;
+            margin: 0 14px;
+            padding: 5px 20px 5px 20px;
+            border-radius: 5px;
+            border-color: gold;
+        }
+
+        .cancelgroubutton {
+            background: repeat scroll 0 0 #898989;
+            color: #fff;
+            font-size: 15px;
+            padding: 5px 20px 5px 20px;
+            border-radius: 5px;
+            border-color: darkgray;
+        }
+
+        .lbladdgroupname {
+            margin-left: 60px;
+            font-size: 15px;
+        }
+
+        .addgroupname {
+            margin-bottom: 20px;
+            padding-right: 5px;
+        }
+
+        /*styles for addgroupname  ends */
+
+        .clearheight10 {
+            clear: both;
+            height: 10px;
+            width: auto;
+        }
+
+        .clearheight30 {
+            clear: both;
+            height: 30px;
+            width: auto;
+        }
+
+        .vl {
+            border-left: 1px solid black;
+            height: 150px;
+            position: absolute;
+            left: 35%;
+            top: 0;
+        }
+        /* styles for three  button in footer starts */
+        .btn_leftalignsfooter {
+            background: none repeat scroll 0 0 #dd6604;
+            margin-right: 10px;
+            border-radius: 8px;
+            border-color: chocolate;
+        }
+    </style>
+
+    <%--
+    <script type="text/javascript">
+        //script for  showing msg for enter group name
+        function Validate() {
+            var txt1 = document.getElementById("<%= txtgroupname.ClientID %>");
+            if (txt1.value == '') {
+                alert('Please enter the group name in the field.');
+                return false;
+            }
+        }
+        function ClearFields() {
+
+            document.getElementById("<%= txtgroupname.ClientID %>").value = "";
+
+        }
+
+    </script>--%>
+
+    <%--    //script for modal pupups starts--%>
+
+    <script type="text/javascript">
+
+        // script for Notify Member
+        function Show_NotifyMemberPopup() {
+            $('#NotifyMemberPopup').modal('show');
+        }
+
+        // script for ResetPasswordPopup
+        function Show_ResetGroupPasswordPopup() {
+            $('#ResetGroupPasswordPopup').modal('show');
+        }
+        // script for DeleteGroupPopup
+        function Show_DeleteGroupPopup() {
+            $('#DeleteGroupPopup').modal('show');
+        }
+
+
+    </script>
+
+    <%--    //script for modal pupups starts--%>
+
+    <div class="batch_wrap" style="margin-top: 0px;">
+        <div>
+            <a href="#" class="new_test_btn" style="float: right; padding: 7px 18px 7px 18px; margin-left: 30px; margin-right: 40px; margin-top: 10px;">Back to Dashboard</a>
+            <a href="#" class="new_test_btn  " style="float: right; padding: 7px 20px 7px 20px; margin-top: 10px;">Back to Group Listing</a>
+        </div>
+    </div>
+
+    <div class="table_txt">
+
+        <%-- <div class="clearheight10"></div>--%>
+
+
+        <%-- <div class="addgroupname" style="width: 50%;">
+            <div style="float:right">
+                <a class="new_test_btn" style="float: right;  color:white; margin-top: 10px;" onclick="Show_DeleteGroupPopup()">Delete Group</a>
+            </div>
+            <i class="fa fa-users fa-lg" style="font-size: 1.5em; margin-left: 30px;"></i>
+            <asp:TextBox size="30" ID="txtgroupname" CssClass="txtboxstyling" placeholder="Enter Group Name" runat="server" MaxLength="255" title="The 'Group name' is seen by Group Members."></asp:TextBox>
+            <asp:Button ID="btnaddgroupname" runat="server" CssClass="addgroubutton" Text="Update" OnClientClick="javascript:return Validate() ;" />
+            <button type="button" class="cancelgroubutton" onclick="ClearFields();">Cancel</button>
+            <div class="clearheight10"></div>
+            <asp:Label runat="server" ID="lbladdgroupname" onclick="myFunction()" CssClass="lbladdgroupname"></asp:Label>
+
+            <a style="float: left; margin-left: 50%; margin-top: 3%; text-decoration: underline; color: cornflowerblue; font-size: 17px;">Add Bulk Students</a>
+            <a style="float: left; margin-left: 50%; font-size: 17px; text-decoration: underline; color: cornflowerblue;">Notify Members</a>
+            <a style="float: left; margin-left: 50%; font-size: 17px; text-decoration: underline; color: cornflowerblue;">Assign Test</a>
+            <a style="float: left; margin-left: 50%; font-size: 17px; text-decoration: underline; color: cornflowerblue;" onclick="Show_ResetGroupPasswordPopup()">Reset Group Password</a>
+
+
+        </div>--%>
+
+        <div>
+
+            <div class="groupdiv col-md-6" style="width: 35%; float:left; margin-top:20px; margin-left:20px;  margin-right: -1px; box-sizing: border-box;">
+                <div style="margin-top: 1px; ">
+                    <i class="fa fa-users fa-lg" style="font-size: 1.5em; margin-left: 10px;"></i>
+                    <asp:TextBox size="30" ID="txtgroupname" CssClass="txtboxstyling" placeholder="Enter Group Name" runat="server" MaxLength="255" title="The 'Group name' is seen by Group Members."></asp:TextBox>
+                    <asp:Button ID="btnaddgroupname" runat="server" CssClass="addgroubutton" Text="Update" OnClientClick="javascript:return Validate() ;" />
+                    <button type="button" class="cancelgroubutton" onclick="ClearFields();">Cancel</button>
+                    <a style="float: left; margin-left: 50%; margin-top: 3%; text-decoration: underline; color: cornflowerblue; font-size: 17px;">Add Bulk Students</a>
+                    <a style="float: left; margin-left: 50%; font-size: 17px; text-decoration: underline; color: cornflowerblue;" onclick="Show_NotifyMemberPopup()">Notify Members</a>
+                    <a style="float: left; margin-left: 50%; font-size: 17px; text-decoration: underline; color: cornflowerblue;">Assign Test</a>
+                    <div class="clearheight30"></div>
+                    <input id="searchinput" type="text" style="width:50%; margin-left: 50px;" class="form-control" placeholder="Search">
+                </div>
+
+            </div>
+
+
+            <div class="selfregistrationdiv col-md-5 " style="width: 40%; height:100%; margin-top:1%;  outline:1px solid black; float:left; display: inline-block; margin-right: -1px; box-sizing: border-box;">
+                <div>
+                    <h4 style="text-align:center;">Self Registration</h4>
+                    <hr style="border-style: inset;  margin-top: 1%;" />
+                    <div style="float:left;">
+                        <p style="font-size:large; padding: 7px 18px 7px 18px;">Generate Registration Codes</p>
+                    </div>
+                    <div>
+                        <%-- Dropdown --%>
+                        <select style="width:40%; " class="form-control">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                    <div class="clearheight10"></div>
+                    <a href="#" class="new_test_btn" style="float: left; padding: 7px 18px 7px 18px;margin-right: 10px;">Generates Codes</a>
+                    <a style="float: left; margin-left: 30%; margin-top: 5%; text-decoration: underline; color: cornflowerblue; font-size: 17px;">Download Codes</a>
+                </div>
+
+            </div>
+
+            <div class="DeleteGroupdiv col-md-2" style="width: 20%; float:right;   margin-right: 15px; box-sizing: border-box;">
+
+                <a class="new_test_btn" style="margin-top: 3%; float: right; padding: 9px 25px 9px 25px; color: white; border-color: gold;" onclick="Show_DeleteGroupPopup()">Delete Group</a>
+                <div class="clearheight10"></div>
+                <div style="float:right;">
+                    <a style="font-size: 17px;  text-decoration: underline; color: cornflowerblue;" onclick="Show_ResetGroupPasswordPopup()">Reset Group Password</a>
+                    <div class="clearheight10"></div>
+                    <a style="font-size: 17px;   text-decoration: underline; color: cornflowerblue; ">View Group Results</a>
+                    <div class="clearheight10"></div>
+                    <a style="font-size: 17px;   text-decoration: underline; color: cornflowerblue;">Export to Excel</a>
+                </div>
+
+
+
+            </div>
+        </div>
+        <%-- Bootstrap Modal Popup for Notify Member starts--%>
+
+        <div class="modal fade" id="NotifyMemberPopup" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <h4 style="float: left;" class="modal-title" id="exampleModalLabel">Notify Group Members when tests are ready to take</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <textarea rows="12" cols="70" placeholder="Enter Custom Messgae Here!"></textarea>
+                            <div class="clearheight10"></div>
+                            <p style="font-size:15px; margin-left: 40px;">Date & Time Of Notifications</p>
+                            <input type="text" style="width:50%; margin-left: 40px;" class="form-control" placeholder="dd-mm-yy">
+                            <a class="new_test_btn" style="margin-top: 3%; float: right; padding: 9px 25px 9px 25px; color: white; border-color: gold;">Notify Members</a>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <%-- Bootstrap Modal Popup for  Notify Member  Ends--%>
+
+
+        <%-- Bootstrap Modal Popup for Reset Group Password starts--%>
+
+        <div class="modal fade" id="ResetGroupPasswordPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <h4 style="float: left;" class="modal-title" id="exampleModalLabel1">Reset Group Password</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">New Password:</label>
+                            <input type="text" class="form-control" id="recipient-name1">
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button runat="server" type="button" class="btn btn-primary">Reset Password</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%-- Bootstrap Modal Popup for Reset Group Password Ends--%>
+
+        <%-- Bootstrap Modal Popup for Delete Group starts--%>
+        <div class="modal fade" id="DeleteGroupPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <h4 style="float: left;" class="modal-title" id="exampleModalLabel2">Delete Group</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Are you sure you want to delete this group?</label>
+                            <p>If you proceed with Ok , All candidates and test will be deleted along with this group. </p>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button runat="server" type="button" class="btn btn-primary">Ok</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <%-- Bootstrap Modal Popup for Delete Group ends--%>
+
+
+        <%-- Bootstrap Modal Popup for Delete Member from Gridview starts--%>
+
+        <div class="modal fade" id="DeleteGroupMemberPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <h4 style="float: left;" class="modal-title" id="exampleModalLabel3">Delete Group</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Are you sure you want to delete this user?</label>
+
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button runat="server" type="button" class="btn btn-primary" onserverclick="btnDelete_Click">Delete</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%-- Bootstrap Modal Popup for Delete Member from Gridview ends--%>
+
+
+        <div class="clearheight10"></div>
+
+
+
+
+        <%-- styles for Gridview--%>
+        <style type="text/css">
+            td span {
+                word-break: break-all;
+            }
+
+            .table_txt1 {
+                border: 1px solid #dedede;
+                -moz-border-radius: 4px;
+                -webkit-border-radius: 4px;
+                border-radius: 4px;
+                /*float: left;*/
+                margin-left: 40px;
+                margin-right: 55px;
+                position: relative;
+                /*margin: 50px 0 20px;*/
+                min-height: 840px;
+            }
+
+            .excel_table table td {
+                padding: 10px 5px;
+                font-size: 14px;
+                vertical-align: top;
+            }
+
+            .excel_table table th {
+                text-align: center;
+                vertical-align: top;
+            }
+
+            .excel_table table tr table th {
+                background-color: white;
+                color: black;
+            }
+
+            .excel_table table th {
+                background: none repeat scroll 0 0 #0e88c3;
+                color: #fff;
+                font-size: 16px;
+                font-weight: 300;
+                padding: 12px 10px;
+                .label-group > .label:first-child
+
+            {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+                margin-right: 0;
+                font-size: 14px;
+            }
+
+            .label-group > .label:nth-child(2) {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+                margin-left: 0;
+                filter: alpha(opacity=70);
+                opacity: 0.7;
+                font-size: 14px;
+            }
+
+            .label-group {
+                background-color: none;
+                padding: 0px;
+                border: solid 0px white;
+            }
+            }
+        </style>
+        <%-- styles for Gridview--%>
+        <div class="table_txt1" style="padding: 10px; margin-top: 15px">
+            <div id="validsummary" runat="server" visible="false"></div>
+            <div class="excel_table">
+                <asp:GridView ID="GridView1" runat="server" ShowFooter="true" CellPadding="4" GridLines="None" border="0" ForeColor="#333333" AutoGenerateColumns="false" DataKeyNames="id"
+                              OnPageIndexChanging="PageIndexChanging" OnRowCommand="GridView1_RowCommand" OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating"
+                              OnRowCancelingEdit="GridView1_RowCancelingEdit" AllowPaging="True" PageSize="7" ShowHeaderWhenEmpty="True" EmptyDataText="No Data Exist">
+                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+
+                    <Columns>
+
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                                <asp:CheckBox ID="chb1" runat="server" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Sr.No." ControlStyle-Width="5%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center">
+                            <ItemTemplate>
+                                <asp:Label ID="lblid" Style="word-break: normal;" runat="server" Text=' <%# Eval("id") %>'></asp:Label>
+                            </ItemTemplate>
+                            <FooterTemplate>
+                                <asp:Label ID="lblidNew" Width="40px" runat="server" />
+                            </FooterTemplate>
+
+                            <ControlStyle Width="5%"></ControlStyle>
+                            <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top"></HeaderStyle>
+                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Top"></ItemStyle>
+                        </asp:TemplateField>
+
+
+                        <asp:TemplateField HeaderText="Roll No.*" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Center">
+                            <ItemTemplate>
+                                <asp:Label ID="lblrollno" runat="server" Text='<%# Eval("rollno") %>'></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtrollno" runat="server" Text='<%# Eval ("rollno") %>' class="in_excl"
+                                             onblur="if(this.value==''){this.value='rollno'; this.style.color='Red';}else {this.style.color='Black';}"
+                                             onfocus="if(this.value=='rollno')this.value='';this.style.color='Black';" ValidationGroup="vldEditRecord"></asp:TextBox>
+                                <%-- <asp:RequiredFieldValidator ID="valrollno" runat="server" ControlToValidate="txtrollno"
+                                                                 Display="Dynamic" ErrorMessage="Roll Number is required." ForeColor="Red" SetFocusOnError="True" ValidationGroup="vldEditRecord"></asp:RequiredFieldValidator>--%>
+                            </EditItemTemplate>
+
+                            <FooterTemplate>
+                                <asp:TextBox ID="txtrollnoNew" runat="server" class="in_excl" onblur="if(this.value==''){this.value='rollno'; this.style.color='Red';}else {this.style.color='Black';}"
+                                             onfocus="if(this.value=='rollno')this.value='';this.style.color='Black';" ValidationGroup="vldNewRecord" />
+                                <%--  <asp:RequiredFieldValidator ID="valrollnoNew" runat="server" ControlToValidate="txtrollnoNew"
+                                                                  Display="Dynamic" ErrorMessage="Roll Number is required." ForeColor="Red" SetFocusOnError="True"
+                                                                  ValidationGroup="vldNewRecord"></asp:RequiredFieldValidator>--%>
+                            </FooterTemplate>
+
+                            <HeaderStyle HorizontalAlign="Left"></HeaderStyle>
+
+                            <ItemStyle HorizontalAlign="Center"></ItemStyle>
+
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="First Name*" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Center">
+                            <ItemTemplate>
+                                <asp:Label ID="lblfirstname" runat="server" Text='<%# Eval("firstname") %>'></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtfirstname" runat="server" Text='<%# Eval ("firstname") %>' class="in_excl"
+                                             onblur="if(this.value==''){this.value='firstname'; this.style.color='Red';}else {this.style.color='Black';}"
+                                             onfocus="if(this.value=='firstname')this.value='';this.style.color='Black';" ValidationGroup="vldEditRecord"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="valfirstname" runat="server" ControlToValidate="txtfirstname"
+                                                            Display="Dynamic" ErrorMessage="First Name is required." ForeColor="Red" SetFocusOnError="True"
+                                                            ValidationGroup="vldEditRecord"></asp:RequiredFieldValidator>
+                            </EditItemTemplate>
+                            <FooterTemplate>
+                                <asp:TextBox ID="txtfirstnameNew" runat="server" class="in_excl" onblur="if(this.value==''){this.value='firstname'; this.style.color='Red';}else {this.style.color='Black';}"
+                                             onfocus="if(this.value=='firstname')this.value='';this.style.color='Black';" ValidationGroup="vldNewRecord" />
+                                <asp:RequiredFieldValidator ID="valfirstnameNew" runat="server" ControlToValidate="txtfirstnameNew"
+                                                            Display="Dynamic" ErrorMessage="First Name is required." ForeColor="Red" SetFocusOnError="True"
+                                                            ValidationGroup="vldNewRecord"></asp:RequiredFieldValidator>
+                            </FooterTemplate>
+
+                            <HeaderStyle HorizontalAlign="Left"></HeaderStyle>
+
+                            <ItemStyle HorizontalAlign="Center"></ItemStyle>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Last Name*" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Center">
+                            <ItemTemplate>
+                                <asp:Label ID="lbllastname" runat="server" Text='<%# Eval("lastname") %>'></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtlastname" runat="server" class="in_excl" Text='<%# Eval ("lastname") %>'
+                                             onblur="if(this.value==''){this.value='lastname'; this.style.color='Red';}else {this.style.color='Black';}"
+                                             onfocus="if(this.value=='lastname')this.value='';this.style.color='Black';" ValidationGroup="vldEditRecord"></asp:TextBox>
+                                <%--  <asp:RequiredFieldValidator ID="vallastname" runat="server" ControlToValidate="txtlastname"
+                                                                  Display="Dynamic" ErrorMessage="Last Name is required." ForeColor="Red" SetFocusOnError="True"
+                                                                  ValidationGroup="vldEditRecord"></asp:RequiredFieldValidator>--%>
+                            </EditItemTemplate>
+                            <FooterTemplate>
+                                <asp:TextBox ID="txtlastnameNew" class="in_excl" runat="server" onblur="if(this.value==''){this.value='lastname'; this.style.color='Red';}else {this.style.color='Black';}"
+                                             onfocus="if(this.value=='lastname')this.value='';this.style.color='Black';" ValidationGroup="vldNewRecord" />
+                                <%--   <asp:RequiredFieldValidator ID="vallastnameNew" runat="server" ControlToValidate="txtlastnameNew"
+                                                                   Display="Dynamic" ErrorMessage="Last Name is required." ForeColor="Red" SetFocusOnError="True"
+                                                                   ValidationGroup="vldNewRecord"></asp:RequiredFieldValidator>--%>
+                            </FooterTemplate>
+
+                            <HeaderStyle HorizontalAlign="Left"></HeaderStyle>
+
+                            <ItemStyle HorizontalAlign="Center"></ItemStyle>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Email Of Candidate*" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Center">
+                            <ItemTemplate>
+                                <asp:Label ID="lblemailid" runat="server" Text='<%# Eval("emailid") %>'></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtemailid" runat="server" class="in_excl" Text='<%# Eval ("emailid") %>'
+                                             onblur="if(this.value==''){this.value='emailid'; this.style.color='Red';}else {this.style.color='Black';}"
+                                             onfocus="if(this.value=='emailid')this.value='';this.style.color='Black';" ValidationGroup="vldEditRecord"></asp:TextBox>
+
+                                <asp:RequiredFieldValidator ID="valemailid" runat="server" ControlToValidate="txtemailid"
+                                                            Display="Dynamic" ErrorMessage="Email Id is required." ForeColor="Red" SetFocusOnError="True"
+                                                            ValidationGroup="vldEditRecord"></asp:RequiredFieldValidator>
+                                <asp:RegularExpressionValidator ID="vldemailid" runat="server" ControlToValidate="txtemailid" Display="Dynamic" ErrorMessage="Incorrect Email id" Font-Bold="True"
+                                                                Font-Size="14px" ForeColor="Red" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="vldEditRecord"></asp:RegularExpressionValidator>
+                            </EditItemTemplate>
+
+                            <FooterTemplate>
+                                <asp:TextBox ID="txtemailidNew" class="in_excl" runat="server" onblur="if(this.value==''){this.value='emailid'; this.style.color='Red';}else {this.style.color='Black';}"
+                                             onfocus="if(this.value=='emailid')this.value='';this.style.color='Black';" ValidationGroup="vldNewRecord" />
+                                <asp:RequiredFieldValidator ID="valemailidNew" runat="server" ControlToValidate="txtemailidNew"
+                                                            Display="Dynamic" ErrorMessage="Email Id is required." ForeColor="Red" SetFocusOnError="True"
+                                                            ValidationGroup="vldNewRecord"></asp:RequiredFieldValidator>
+                                <asp:RegularExpressionValidator ID="vldemailidNew" runat="server" ControlToValidate="txtemailidNew" Display="Dynamic" ErrorMessage="Incorrect EmailId" Font-Bold="True"
+                                                                Font-Size="14px" ForeColor="Red" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidationGroup="vldNewRecord"></asp:RegularExpressionValidator>
+                                <asp:Label ID="Elblemailid" runat="server" Font-Size="11px" Font-Bold="true" ForeColor="Red"></asp:Label>
+                            </FooterTemplate>
+
+                            <HeaderStyle HorizontalAlign="Left"></HeaderStyle>
+
+                            <ItemStyle HorizontalAlign="Center"></ItemStyle>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Contact No.*" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Center">
+                            <ItemTemplate>
+                                <asp:Label ID="lblphone" runat="server" Text='<%# Eval("phone") %>'></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtphone" runat="server" class="in_excl" Text='<%# Eval ("phone") %>'
+                                             onblur="if(this.value==''){this.value='phone'; this.style.color='Red';}else {this.style.color='Black';}"
+                                             onfocus="if(this.value=='phone')this.value='';this.style.color='Black';" ValidationGroup="vldEditRecord"></asp:TextBox>
+
+                                <asp:RegularExpressionValidator ID="vldphone" runat="server" ControlToValidate="txtphone" Display="Dynamic" ErrorMessage="Must be Number" Font-Bold="True"
+                                                                Font-Size="14px" ForeColor="Red" ValidationExpression="^[0-9]*$" ValidationGroup="vldEditRecord"></asp:RegularExpressionValidator>
+                            </EditItemTemplate>
+                            <FooterTemplate>
+                                <asp:TextBox ID="txtphoneNew" runat="server" class="in_excl" onblur="if(this.value==''){this.value='phone'; this.style.color='Red';}else {this.style.color='Black';}"
+                                             onfocus="if(this.value=='phone')this.value='';this.style.color='Black';" ValidationGroup="vldNewRecord" />
+                                <asp:RegularExpressionValidator ID="vldphoneNew" runat="server" ControlToValidate="txtphoneNew" Display="Dynamic" ErrorMessage="Must be No." Font-Bold="True"
+                                                                Font-Size="14px" ForeColor="Red" ValidationExpression="^[0-9]*$" ValidationGroup="vldNewRecord"></asp:RegularExpressionValidator>
+                            </FooterTemplate>
+
+                            <HeaderStyle HorizontalAlign="Left"></HeaderStyle>
+
+                            <ItemStyle HorizontalAlign="Center"></ItemStyle>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="User Name*" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Center">
+                            <ItemTemplate>
+                                <asp:Label ID="lblusername" runat="server" Text='<%# Eval("username") %>'></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtusername" runat="server" class="in_excl" Text='<%# Eval ("username") %>'
+                                             onblur="if(this.value==''){this.value='username'; this.style.color='Red';}else {this.style.color='Black';}"
+                                             onfocus="if(this.value=='username')this.value='';this.style.color='Black';" ValidationGroup="vldEditRecord"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="valusername" runat="server" ControlToValidate="txtusername"
+                                                            Display="Dynamic" ErrorMessage="User Name is required." ForeColor="Red" SetFocusOnError="True"
+                                                            ValidationGroup="vldEditRecord"></asp:RequiredFieldValidator>
+
+                            </EditItemTemplate>
+                            <FooterTemplate>
+                                <asp:TextBox ID="txtusernameNew" runat="server" class="in_excl" onblur="if(this.value==''){this.value='username'; this.style.color='Red';}else {this.style.color='Black';}"
+                                             onfocus="if(this.value=='username')this.value='';this.style.color='Black';" ValidationGroup="vldNewRecord" />
+                                <asp:RequiredFieldValidator ID="valusernamenew" runat="server" ControlToValidate="txtusernameNew"
+                                                            Display="Dynamic" ErrorMessage="User Name is required." ForeColor="Red" SetFocusOnError="True"
+                                                            ValidationGroup="vldNewRecord"></asp:RequiredFieldValidator>
+
+                            </FooterTemplate>
+
+                            <HeaderStyle HorizontalAlign="Left"></HeaderStyle>
+
+                            <ItemStyle HorizontalAlign="Center"></ItemStyle>
+                        </asp:TemplateField>
+
+
+
+                        <asp:TemplateField HeaderText="Password*" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Center">
+                            <ItemTemplate>
+                                <asp:Label ID="lblpassword" runat="server" Text='<%# Eval("password") %>'></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox ID="txtpassword" runat="server" class="in_excl" Text='<%# Eval ("password") %>'
+                                             onblur="if(this.value==''){this.value='password'; this.style.color='Red';}else {this.style.color='Black';}"
+                                             onfocus="if(this.value=='password')this.value='';this.style.color='Black';" ValidationGroup="vldEditRecord"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="valpassword" runat="server" ControlToValidate="txtpassword"
+                                                            Display="Dynamic" ErrorMessage="Password is required." ForeColor="Red" SetFocusOnError="True"
+                                                            ValidationGroup="vldEditRecord"></asp:RequiredFieldValidator>
+                            </EditItemTemplate>
+                            <FooterTemplate>
+                                <asp:TextBox ID="txtpasswordNew" runat="server" class="in_excl" onblur="if(this.value==''){this.value='password'; this.style.color='Red';}else {this.style.color='Black';}"
+                                             onfocus="if(this.value=='password')this.value='';this.style.color='Black';" ValidationGroup="vldNewRecord" />
+                                <asp:RequiredFieldValidator ID="valpasswordNew" runat="server" ControlToValidate="txtpasswordNew"
+                                                            Display="Dynamic" ErrorMessage="Password is required." ForeColor="Red" SetFocusOnError="True"
+                                                            ValidationGroup="vldNewRecord"></asp:RequiredFieldValidator>
+                            </FooterTemplate>
+
+                            <HeaderStyle HorizontalAlign="Left"></HeaderStyle>
+
+                            <ItemStyle HorizontalAlign="Center"></ItemStyle>
+                        </asp:TemplateField>
+
+
+                        <asp:TemplateField HeaderText="Actions">
+                            <ItemTemplate>
+
+                                <table style="width: 50px;">
+                                    <tr>
+                                        <td>
+                                            <label style="cursor: pointer" title="Edit candidate details">
+                                                <i class="fa fa-edit fa-lg" style="font-size: 1.6em;"></i>
+                                                <asp:Button ID="lnkEdit" runat="server" Text="" CommandName="Edit" Style="display: none;" title='Edit candidate details'
+                                                            data-alignx='center'></asp:Button>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label style="cursor: pointer" title="Delete candidate details">
+                                                <i class="fa fa-trash-o fa-lg" style="font-size: 1.6em;"></i>
+                                                <asp:Button ID="lnkDelete" runat="server" href="#DeleteGroupMemberPopup" data-toggle="modal" Text="Delete" Style="display: none;" class="exdlt_uesr"></asp:Button>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </ItemTemplate>
+
+                            <EditItemTemplate>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <table runat="server" id="dvupdate">
+                                                <tr>
+                                                    <td>
+                                                        <label style="cursor: pointer" title="Update candidate details">
+                                                            <i class="fa fa-floppy-o fa-lg" style="font-size: 1.6em;"></i>
+                                                            <asp:Button ID="lnkInsert" runat="server" Text="Update" CommandName="Update" ValidationGroup="vldEditRecord" class="up_uesr" Style="display: none; border: none; cursor: pointer;"></asp:Button>
+                                                        </label>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table runat="server" id="dvadd" visible="false">
+                                                <tr>
+                                                    <td>
+                                                        <label style="cursor: pointer" title="Add candidate details">
+                                                            <i class="tooltipSetting tooltip2 fa fa-plus-square fa-lg"
+                                                               title="Click to add this record to invite list." data-alignx="center" data-alignto="target" data-aligny="bottom" data-offsety="5" data-offsetx="0"
+                                                               style="margin-right: 5px; float: left; font-size: 1.6em;"><span style="font-family: 'Roboto Slab', serif;">Add</span></i>
+                                                        </label>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                        </td>
+                                        <td>
+                                            <table runat="server" id="dvcancel">
+                                                <tr>
+                                                    <td>
+                                                        <label style="cursor: pointer" title="Cancel changes">
+                                                            <i class="fa fa-remove fa-lg" style="font-size: 1.6em;"></i>
+                                                            <asp:Button ID="lnkCancel" runat="server" Text="Cancel" CommandName="Cancel" CausesValidation="False" class="ed_uesr" Style="display: none; border: none; cursor: pointer;"></asp:Button>
+                                                        </label>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </EditItemTemplate>
+
+                            <FooterTemplate>
+
+                                <asp:LinkButton ID="lnkInsert" runat="server" Text="" ValidationGroup="vldNewRecord"
+                                                CommandName="InsertNew" ToolTip="Add New Employee">
+                                    <i class="tooltipSetting tooltip2 fa fa-plus-square fa-lg"
+                                       title="Click to add this record to invite list." data-alignx="center" data-alignto="target" data-aligny="bottom" data-offsety="5" data-offsetx="0" style="margin-right: 5px; float: left;
+                                               font-size: 1.6em;"><span style="font-family: 'Roboto Slab', serif;">Add</span></i>
+                                </asp:LinkButton>
+
+                            </FooterTemplate>
+                            <FooterStyle Width="150px"></FooterStyle>
+                            <HeaderStyle Width="150px"></HeaderStyle>
+                            <ItemStyle HorizontalAlign="Center"></ItemStyle>
+                        </asp:TemplateField>
+
+
+
+                    </Columns>
+
+
+                    <RowStyle CssClass="gvrBorderBottom" />
+                    <EditRowStyle BackColor="#f3f3f3" />
+                    <FooterStyle BackColor="#d4d4d4" Font-Bold="True" ForeColor="White" />
+                    <PagerStyle BackColor="#999999" ForeColor="White" HorizontalAlign="Left" />
+                    <PagerSettings Mode="NumericFirstLast" PageButtonCount="3" FirstPageText="First" LastPageText="Last" NextPageText="" PreviousPageText="" />
+
+                </asp:GridView>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="clearheight10"></div>
+
+        <div style="float: left; margin-left: 50px;">
+            <button type="button" class="new_test_btn btn_leftalignsfooter" style="color: #fff;">Delete</button>
+            <button type="button" class="new_test_btn btn_leftalignsfooter" style="color: #fff;">Provide Group Access</button>
+            <button type="button" class="new_test_btn btn_leftalignsfooter" style="color: #fff;">Remove Group Access</button>
+        </div>
+    </div>
+
+
+
+</asp:Content>
+
+
+<%--Add record to Database using ASP.Net GridView EmptyDataTemplate and FooterTemplate--%>
+@*<html>
+
+    <body>
+
+        @*<h1>
+           @foreach(var name in Model)
+           {
+          <p>@name.DoctorName
+            @name.DoctorAddress
+            @name.DoctorID
+            @name.DoctorNumber</p>
+           }
+        </h1>*@
+@*<div>Time left = <span id="timer"></span></div>
+
+        <script>
+
+
+
+                    //document.getElementById('timer').innerHTML =
+                    //    012 + ":" + 00;
+                    //startTimer();
+
+                    //function startTimer() {
+                    //    var presentTime = document.getElementById('timer').innerHTML;
+                    //    var timeArray = presentTime.split(/[:]+/);
+                    //    var m = timeArray[0];
+                    //    var s = checkSecond((timeArray[1] - 1));
+                    //    if (s == 59) { m = m - 1 }
+                    //    //if(m<0){alert('timer completed')}
+                    //    document.getElementById('timer').innerHTML = m + ":" + s;
+                    //    console.log(m)
+                    //    setTimeout(startTimer, 1000);
+                    //}
+                    //function checkSecond(sec) {
+                    //    if (sec < 10 && sec >= 0) { sec = "0" + sec }; // add zero in front of numbers < 10
+                    //    if (sec < 0) { sec = "59" };
+                    //    return sec;
+                    //}
+        </script>
+    </body>
+
+
+    </html>*@*@
+
+    @*<html>
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <style>
+                p {
+                    display: inline;
+                    font-size: 40px;
+                    margin-top: 0px;
+                }
+            </style>
+        </head>
+        <body>
+            <p id="days"></p>
+            <p id="hours"></p>
+            <p id="mins"></p>
+            <p id="secs"></p>
+            <h2 id="end"></h2>
+            <script>
+                // The data/time we want to countdown to
+                var countDownDate = new time("Jul 25, 2021 10:32:10").getTime();
+
+                // Run myfunc every second
+                var myfunc = setInterval(function () {
+
+                    var now = new Date().getTime();
+                    var timeleft = countDownDate - now;
+
+                    // Calculating the days, hours, minutes and seconds left
+
+                    var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+
+                    // Result is output to the specific element
+
+                    document.getElementById("mins").innerHTML = minutes + "m "
+                    document.getElementById("secs").innerHTML = seconds + "s "
+
+                    // Display the message when countdown is over
+                    if (timeleft < 0) {
+                        clearInterval(myfunc);
+
+                        document.getElementById("mins").innerHTML = ""
+                        document.getElementById("secs").innerHTML = ""
+                        document.getElementById("end").innerHTML = "TIME UP!!";
+                    }
+                }, 1000);
+            </script>
+        </body>
+        </html>*@
+
+
+    <h6>index</h6>
+
